@@ -1,0 +1,92 @@
+﻿@page "/MeshPage"
+@implements IAsyncDisposable
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+@inject IJSRuntime jsRunTime
+
+<PageTitle>Native Skia graphics library</PageTitle>
+
+<h2>Native Drawing</h2>
+<line />
+<p>Comparison example, canvas element rendering with JavaScript canvas element, and SkyaSharpView element rendering with C#</p>
+
+<h5 style="color:gray;">In what way is Skia and Blazor superior?</h5>
+<p>Anti-aliasing cannot be turned on or off, and is controlled by the browser. Graphics are native</p>
+<line />
+<div class="row">
+    <div class="col" align="center">
+        <h5>Canvas - JavaScript</h5>
+        <canvas id="canvas" width="@_width" height="@_height" style="@Style"></canvas>
+        <pre id="xyCanvas">(0, 0)</pre>
+    </div>
+    <div class="col" align="center">
+        <h5>SkiaSharp - C#</h5>
+        <SKCanvasView OnPaintSurface="PaintSurface" IgnorePixelScaling=true style="@Style" @onmousemove="OnMouseMove" />
+        <pre>@xy</pre>
+    </div>
+</div>
+
+@code {
+    IJSObjectReference? module;
+
+    readonly float _width = 300, _height = 300;
+
+    string Style => $"width:{_width}px;height:{_height}px;cursor:crosshair;";
+
+    string xy = "";
+
+    const float R = 0.5F;
+
+    void PaintSurface(SKPaintSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+        canvas.Clear(SKColors.White);
+
+        using SKPaint penMesh = new()
+            {
+                Color = SKColors.LightGray,
+                IsAntialias = false,
+                Style = SKPaintStyle.Stroke,
+            };
+
+        float w = e.Info.Width;
+        float h = e.Info.Height;
+        // x
+        float mx = w / 20.0F;
+        for (float x = 0; x < w; x += mx)
+        {
+            canvas.DrawLine(x, 0, x, h, penMesh);
+        }
+        // perfect close
+        canvas.DrawLine(w - R, 0, w - R, h, penMesh);
+        // y
+        float my = h / 20.0F;
+        for (float y = 0; y < h; y += my)
+        {
+            canvas.DrawLine(0, y, w, y, penMesh);
+        }
+        // perfect close
+        canvas.DrawLine(0, h - R, w, h - R, penMesh);
+    }
+
+    void OnMouseMove(MouseEventArgs e)
+    {
+        xy = $"X: {e.OffsetX}, Y: {e.OffsetY}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await jsRunTime.InvokeAsync<IJSObjectReference>("import", "./Pages/MeshPage.razor.js");
+            await module.InvokeVoidAsync("drawMesh");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (module is not null)
+            await module.DisposeAsync();
+        GC.SuppressFinalize(this);
+    }
+}

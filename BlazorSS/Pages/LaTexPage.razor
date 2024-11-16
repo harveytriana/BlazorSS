@@ -1,0 +1,45 @@
+﻿@page "/LaTexPage"
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+@using CSharpMath.SkiaSharp
+
+<style>
+    .center-element {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+
+<img src="../images/Latex_Logo.png" style="width:130px;" />
+<hr />
+<div class="center-element">
+    <SKCanvasView OnPaintSurface="OnPaintSurface"
+                  IgnorePixelScaling=true
+                  style="width:600px;height:130px;" />
+</div>
+<hr />
+<p>
+    <b>LaTeX</b>, is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
+</p>
+
+@code {
+    string[] samples = new string[] {
+        @"\frac{-b \pm \sqrt{b^2 + 4ac}}{2a}",
+        @"\frac\sqrt23",
+        @"e^{i \pi}",
+        @"\int_{a}^{b} u dv = u(x)v(x)|_a^b - \int^{b}_a v du"
+    };
+    int sampleIndex = 3;
+
+    void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+        // draw LaTeX
+        var painter = new MathPainter {
+                LaTeX = samples[sampleIndex],
+            };
+        painter.Draw(canvas);
+    }
+}

@@ -1,0 +1,73 @@
+﻿@page "/ScrollCanvasPage"
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+@using System.Text
+@inject TypeFaceService _typeFace;
+
+<style>
+    .wrapper {
+        width: 500px;
+        overflow-x: scroll;
+        white-space: nowrap;
+        border: 1px solid rgb(220,220,220);
+    }
+</style>
+
+<h3>Scroll Canvas Page</h3>
+<hr />
+<div class="wrapper">
+    <SKCanvasView OnPaintSurface="OnPaintSurface"
+                  @onmousemove="OnMouseMove"
+                  IgnorePixelScaling=true
+                  style="@Style" />
+</div>
+<br />
+<pre>@echo</pre>
+
+@code {
+    SKTypeface? typeface;
+
+    string echo = string.Empty;
+    string _text = string.Empty;
+
+    float _canvasWidth;
+
+    string Style => $"width:{_canvasWidth}px;height:200px;";
+
+    protected override void OnInitialized()
+    {
+        var sb = new StringBuilder();
+        var x = 40; // size calculation speculation
+        for(int i = 0; i < 50; i++) {
+            sb.Append(i.ToString("0000 "));
+            x += 40;
+        }
+        _text = sb.ToString();
+        _canvasWidth = x;
+        typeface = _typeFace.GetTTF("Arial");
+
+        echo = $"Canvas Width: {_canvasWidth}";
+    }
+
+    void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+
+        canvas.Clear();
+
+        using SKPaint paint = new() {
+                Style = SKPaintStyle.Fill,
+                TextSize = 12,
+                IsAntialias = true,
+                Typeface = typeface
+            };
+
+        canvas.DrawText(_text, 15, 15, paint);
+        canvas.DrawText(_text, 15, 40, paint);
+    }
+
+    void OnMouseMove(MouseEventArgs e)
+    {
+        echo = $"X: {e.OffsetX}, Y: {e.OffsetY}";
+    }
+}
