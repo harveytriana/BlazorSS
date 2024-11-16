@@ -51,7 +51,7 @@ With **SkiaSharp** and **Blazor WebAssembly**, we have powerful tools to generat
 
 ## Annex - Docker
 
-I have added a Dockerfile to build the image for this project. It is important to note that, since this is a web application, the commands used differ from those for a Web API. Additionally, a custom configuration file, nginx.conf, has been included to manage the server settings. Lastly, to resolve the required native dependencies, the Dockerfile commands include the installation of wasm-tools.
+I have added a Dockerfile to build the image for this project. It is important to note that, since this is a web application, the commands used differ from those for a Web API. Additionally, a custom configuration file, nginx.conf, has been included to manage the server settings. Lastly, to resolve the required native dependencies, the Dockerfile commands include the installation of wasm-tools. As for the Blazor WebAssembly solution that uses native dependencies, to support Linux and Docker (of course), we added the SkiaSharp.NativeAssets.Linux reference.
 
 ---
 <small>By: Luis Harvey Triana Vega</small>
