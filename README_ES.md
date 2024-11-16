@@ -20,7 +20,7 @@ En este proyecto presento algunos ejemplos interesantes con SkiaSharp sobre Blaz
 
 Esta es una forma básica de demostrar cómo dibujar en un lienzo. Compárelo con el código JavaScript de la API Canvas.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/2.png" style="width: 974px; height: 691px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/2.png" style="width:1036px; height:632px;">
 </p>
 
 ### Líneas Temporizadas

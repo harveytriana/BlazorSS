@@ -20,7 +20,7 @@ In this project I present some interesting examples with SkiaSharp on Blazor Web
 
 This is a basic way to demonstrate how to draw on a canvas. Compare it to the Canvas API JavaScript code.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/2.png" style="width: 974px; height: 691px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/2.png" style="width:1036px; height:632px;">
 </p>
 
 ### Timed Lines
