@@ -24,7 +24,8 @@ export function drawMesh() {
     for (let x = 0; x < w; x += mx) {
         drawLine(x, 0, x, h);
     }
-    drawLine(w - R, 0, w - R, h);
+    // perfect close
+    drawLine(w - 1, 0, w - 1, h);
 
     for (let y = 0; y < h; y += my) {
         drawLine(0, y, w, y);
