@@ -20,28 +20,28 @@ En este proyecto presento algunos ejemplos interesantes con SkiaSharp sobre Blaz
 
 Esta es una forma básica de demostrar cómo dibujar en un lienzo. Compárelo con el código JavaScript de la API Canvas.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/2.png" style="width: 1102px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/2.png" style="width: 1102px; height: 663px;">
 </p>
 
 ### Líneas Temporizadas
 
 Se dibujan líneas aleatorias en un lienzo cada 250 milisegundos. El lienzo es responsivo.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/3.png" style="width: 1101px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/3.png" style="width: 1101px; height: 663px;">
 </p>
 
 ### Fuentes Tipográficas
 
 Muestro una técnica de como podemos usar cualquier tipo de fuente tipográfica en navegados con SkiaSharp. Al ser Web Assembly, tienes que tener el recurso del lado del cliente. En el ejemplo uso un servicio para hacer esto eficiente, y cargas una sola vez, y en demanda.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/4.png" style="width: 1101px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/4.png" style="width: 1101px; height: 663px;">
 </p>
 
 ### LaText 
 
 LaTeX es un sistema de composición de documentos de alta calidad, especialmente utilizado en áreas académicas y técnicas para crear documentos con un formato profesional. Se basa en comandos de marcado que permiten al autor enfocarse en el contenido, mientras que el diseño y el formato son gestionados automáticamente por el sistema. Es ideal para documentos con matemáticas complejas, referencias bibliográficas, y gráficos, proporcionando resultados consistentes y precisos. Acá usó una librería de terceros para decodificar el codigo LaTex y generar el gráfico.  
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/5.png" style="width: 1101px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/5.png" style="width: 1101px; height: 663px;">
 </p>
 
 ## Conclusión

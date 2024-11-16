@@ -20,28 +20,28 @@ In this project I present some interesting examples with SkiaSharp on Blazor Web
 
 This is a basic way to demonstrate how to draw on a canvas. Compare it to the Canvas API JavaScript code.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/2.png" style="width: 1102px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/2.png" style="width: 1102px; height: 663px;">
 </p>
 
 ### Timed Lines
 
 Random lines are drawn on a canvas every 250 milliseconds. The canvas is responsive.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/3.png" style="width: 1101px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/3.png" style="width: 1101px; height: 663px;">
 </p>
 
 ### Typographic Fonts
 
 I show a technique on how we can use any type of font in browsers with SkiaSharp. Being Web Assembly, you have to have the resource on the client side. In the example I use a service to make this efficient, and you load it once, and on demand.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/4.png" style="width: 1101px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/4.png" style="width: 1101px; height: 663px;">
 </p>
 
 ### LaTeX
 
 LaTeX is a high-quality document preparation system widely used in academic and technical fields to create professionally formatted documents. It relies on markup commands that allow the author to focus on the content while the system automatically handles the design and formatting. It’s ideal for documents with complex mathematics, bibliographic references, and graphics, providing consistent and precise results. Here, a third-party library was used to decode LaTeX code and generate the graphic.
 <p align="center">
-  <img src="https://github.com/harveytriana/BlazorSkia/blob/master/Screens/5.png" style="width: 1101px; height: 663px;">
+  <img src="https://github.com/harveytriana/BlazorSS/blob/master/Screens/5.png" style="width: 1101px; height: 663px;">
 </p>
 
 
