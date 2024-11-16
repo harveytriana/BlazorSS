@@ -48,7 +48,7 @@ LaTeX es un sistema de composición de documentos de alta calidad, especialmente
 
 Con **SkiaSharp** y **Blazor WebAssembly** contamos con herramientas potentes para generar gráficos directamente en el navegador, eliminando la necesidad de depender de JavaScript. Este enfoque no solo simplifica el desarrollo, sino que también representa un paradigma avanzado para aplicaciones gráficas en la web.
 
-## Anexo - Docker.
+## Anexo - Docker
 
 He añadido un Dockerfile para generar la imagen de este proyecto. Es importante destacar que, al tratarse de una aplicación de sitio web, los comandos utilizados difieren de los empleados en una Web API. Además, se ha incluido un archivo de configuración personalizado, nginx.conf, para gestionar la configuración del servidor. Por último, para resolver las dependencias nativas necesarias, los comandos del Dockerfile incorporan la instalación de wasm-tools.
 
