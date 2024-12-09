@@ -4,21 +4,27 @@
 @using SkiaSharp.Views.Blazor
 @inject IJSRuntime jsRunTime
 
-<PageTitle>Native Skia graphics library</PageTitle>
+<style>
+    .single-line {
+        display: flex;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
 
 <h2>Native Drawing</h2>
 <line />
 <p>Comparison example, canvas element rendering with JavaScript canvas element, and SkyaSharpView element rendering with C#</p>
 <line />
-<div class="row">
-    <div class="col" align="center">
+<div class="single-line">
+    <div>
         <h5>Canvas - JavaScript</h5>
         <canvas id="canvas" width="@_width" height="@_height" style="@Style"></canvas>
-        <pre id="xyCanvas">(0, 0)</pre>
+        <pre id="xyCanvas">X: 0 Y: 0</pre>
     </div>
-    <div class="col" align="center">
+    <div>
         <h5>SkiaSharp - C#</h5>
-        <SKCanvasView OnPaintSurface="PaintSurface" IgnorePixelScaling=true style="@Style" @onmousemove="OnMouseMove" />
+        <SKCanvasView OnPaintSurface="PaintSurface" style="@Style" @onmousemove="OnMouseMove" />
         <pre>@xy</pre>
     </div>
 </div>
@@ -28,9 +34,9 @@
 
     readonly float _width = 300, _height = 300;
 
-    string Style => $"width:{_width}px;height:{_height}px;cursor:crosshair;";
+    string Style => $"width:{_width}px;height:{_height}px;margin-right:20px;";
 
-    string xy = "";
+    string xy = "X: 0 Y: 0";
 
     const float R = 0.5F;
 
@@ -68,7 +74,7 @@
 
     void OnMouseMove(MouseEventArgs e)
     {
-        xy = $"X: {e.OffsetX}, Y: {e.OffsetY}";
+        xy = $"X: {e.OffsetX} Y: {e.OffsetY}";
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -40,7 +40,7 @@ export function drawMesh() {
         let r = canvas.getBoundingClientRect();
         let x = Math.round(e.clientX - r.left);
         let y = Math.round(e.clientY - r.top);
-        xy.textContent = `X: ${x}, Y: ${y}`;
+        xy.textContent = `X: ${x} Y: ${y}`;
     });
 
 }
