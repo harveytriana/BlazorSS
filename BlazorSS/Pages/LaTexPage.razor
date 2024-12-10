@@ -2,6 +2,7 @@
 @using SkiaSharp
 @using SkiaSharp.Views.Blazor
 @using CSharpMath.SkiaSharp
+@using System.Text.Json
 
 <style>
     .center-element {
@@ -10,36 +11,77 @@
         align-items: center;
     }
 
+    .radio-button {
+        accent-color: darkorchid;
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+
 </style>
 
 <img src="../images/Latex_Logo.png" style="width:130px;" />
 <hr />
 <div class="center-element">
-    <SKCanvasView OnPaintSurface="OnPaintSurface"
+    <SKCanvasView @ref="canvasView"
+                  OnPaintSurface="OnPaintSurface"
                   IgnorePixelScaling=true
                   style="width:600px;height:130px;" />
 </div>
-<hr />
 <p>
-    <b>LaTeX</b>, is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
+    LATEX, is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
 </p>
+<hr />
+<h3>Some equations that changed the world</h3>
+@if (lateXSample is not null)
+{
+    @foreach (var la in ls)
+    {
+        <div>
+            <input type="radio" id="option_@la.Id" name="options" class="radio-button" @onclick="() => OnOptionSelected(la)" checked="@(la.Id== lateXSample.Id)" />
+            <label for="option_@la.Id" class="radio-label">@la.Description</label>
+        </div>
+    }
+}
 
 @code {
-    string[] samples = new string[] {
-        @"\frac{-b \pm \sqrt{b^2 + 4ac}}{2a}",
-        @"\frac\sqrt23",
-        @"e^{i \pi}",
-        @"\int_{a}^{b} u dv = u(x)v(x)|_a^b - \int^{b}_a v du"
-    };
-    int sampleIndex = 3;
+    SKCanvasView? canvasView;
+
+    record LaTeXSample(int Id, string Description, string LaTeX);
+
+    LaTeXSample? lateXSample;
+
+    List<LaTeXSample> ls = [];
+
+    protected override void OnInitialized()
+    {
+        ls.Add(new LaTeXSample(1, "Quadratic Equation", @"x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"));
+        ls.Add(new LaTeXSample(2, "Fourier Transform", @"\hat{f}(\xi) = \int_{-\infty}^\infty f(x) e^{-2\pi i \xi x} \, dx"));
+        ls.Add(new LaTeXSample(3, "Length of an arc (Integral of a curve)", @"L = \int_a^b \sqrt{1 + \left( \frac{dy}{dx} \right)^2} \, dx"));
+        ls.Add(new LaTeXSample(4, "Normalization Equation of a Wave Function", @"\int_{-\infty}^\infty |\psi(x)|^2 \, dx = 1"));
+        ls.Add(new LaTeXSample(5, "Coulomb's law (with electric field integral)", @"\vec{E} = \frac{1}{4\pi\epsilon_0} \int \frac{\rho(\vec{r}') (\vec{r} - \vec{r}')}{|\vec{r} - \vec{r}'|^3} \, d^3r'"));
+        ls.Add(new LaTeXSample(6, "Euler's formula", @"e^{i\pi} + 1 = 0"));
+        ls.Add(new LaTeXSample(7, "Rule of integration by parts", @"\int_{a}^{b} u dv = u(x)v(x)|_a^b - \int^{b}_a v du"));
+        lateXSample = ls.Last();
+    }
 
     void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
+        canvas.Clear(SKColors.White);
         // draw LaTeX
-        var painter = new MathPainter {
-                LaTeX = samples[sampleIndex],
+        var painter = new MathPainter
+            {
+                LaTeX = lateXSample?.LaTeX
             };
         painter.Draw(canvas);
+    }
+}
+
+@code {
+    void OnOptionSelected(LaTeXSample y)
+    {
+        lateXSample = y;
+        canvasView?.Invalidate();
     }
 }
