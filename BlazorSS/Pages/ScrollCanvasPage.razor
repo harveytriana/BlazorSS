@@ -25,29 +25,9 @@
 <pre>@echo</pre>
 
 @code {
-    SKTypeface? typeface;
+    string echo = "X: 0 Y: 0";
 
-    string echo = string.Empty;
-    string _text = string.Empty;
-
-    float _canvasWidth;
-
-    string Style => $"width:{_canvasWidth}px;height:200px;";
-
-    protected override void OnInitialized()
-    {
-        var sb = new StringBuilder();
-        var x = 40; // size calculation speculation
-        for(int i = 0; i < 50; i++) {
-            sb.Append(i.ToString("0000 "));
-            x += 40;
-        }
-        _text = sb.ToString();
-        _canvasWidth = x;
-        typeface = _typeFace.GetTTF("Arial");
-
-        echo = $"Canvas Width: {_canvasWidth}";
-    }
+    string Style => $"width:1000px;height:200px;";
 
     void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
@@ -55,19 +35,20 @@
 
         canvas.Clear();
 
-        using SKPaint paint = new() {
+        using SKPaint paint = new()
+            {
                 Style = SKPaintStyle.Fill,
-                TextSize = 12,
                 IsAntialias = true,
-                Typeface = typeface
             };
+        var font = new SKFont(_typeFace.GetTTF("Arial"), 12);
 
-        canvas.DrawText(_text, 15, 15, paint);
-        canvas.DrawText(_text, 15, 40, paint);
+        canvas.DrawText(IpsumLorem.GenerateParagraph(20), 15, 15, font, paint);
+        canvas.DrawText(IpsumLorem.GenerateParagraph(25), 15, 45, font, paint);
+        canvas.DrawText(IpsumLorem.GenerateParagraph(15), 15, 75, font, paint);
     }
 
     void OnMouseMove(MouseEventArgs e)
     {
-        echo = $"X: {e.OffsetX}, Y: {e.OffsetY}";
+        echo = $"X: {e.OffsetX} Y: {e.OffsetY}";
     }
 }
