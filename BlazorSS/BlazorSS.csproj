@@ -9,6 +9,8 @@
     <None Remove="Resources\Consolas.ttf" />
     <None Remove="Resources\Freescpt.ttf" />
     <None Remove="Resources\OldLondon.ttf" />
+    <None Remove="Resources\Roboto-Light.ttf" />
+    <None Remove="Resources\Roboto-Regular.ttf" />
     <None Remove="Resources\Times.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -16,6 +18,8 @@
     <EmbeddedResource Include="Resources\Consolas.ttf" />
     <EmbeddedResource Include="Resources\Freescpt.ttf" />
     <EmbeddedResource Include="Resources\OldLondon.ttf" />
+    <EmbeddedResource Include="Resources\Roboto-Light.ttf" />
+    <EmbeddedResource Include="Resources\Roboto-Regular.ttf" />
     <EmbeddedResource Include="Resources\Times.ttf" />
   </ItemGroup>
   <ItemGroup>
