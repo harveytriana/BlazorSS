@@ -13,8 +13,8 @@ public class TypeFaceService
 
     public SKTypeface GetTTF(string ttfName)
     {
-        if(_typeFaces.ContainsKey(ttfName)) {
-            return _typeFaces[ttfName];
+        if(_typeFaces.TryGetValue(ttfName, out SKTypeface? value)) {
+            return value;
         }
         if(LoadTypeFace(ttfName)) {
             return _typeFaces[ttfName];
