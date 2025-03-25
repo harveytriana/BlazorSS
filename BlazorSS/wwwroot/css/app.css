@@ -111,3 +111,36 @@ line {
     margin-top: 0.5em;
     margin-bottom: 0.75em;
 }
+
+/* 
+Some improvements
+----------------------------------------*/
+:focus {
+    border: none;
+    outline: none;
+}
+
+.h1, h1 {
+    font-size: 32px;
+    color: slategray;
+}
+
+.h2, h2 {
+    font-size: 28px;
+    color: slategray;
+}
+
+.h3, h3 {
+    font-size: 24px;
+    color: slategray;
+}
+
+.loader {
+    width: 100%;
+    text-align: center;
+    color: silver;
+    font-size: 1.5rem;
+    margin-top: 10rem;
+}
+/* 
+----------------------------------------*/
