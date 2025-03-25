@@ -5,10 +5,12 @@ namespace Tools;
 public class IpsumLorem
 {
     static readonly string[] words = [
-        "Lorem", "ipsum", "dolor", "sit", "amet",
-        "consectetur", "adipiscing", "elit", "sed",
-        "do", "eiusmod", "tempor", "incididunt", "ut",
-        "labore", "et", "dolore", "magna", "aliqua"
+        "lorem", "ipsum", "dolor", "sit", "amet", "consectetur",
+        "adipiscing", "elit", "sed", "do", "eiusmod", "tempor",
+        "incididunt", "ut", "labore", "et", "dolore", "magna",
+        "aliqua", "enim", "ad", "minim", "veniam", "quis",
+        "nostrud", "exercitation", "ullamco", "laboris", "nisi",
+        "ut", "aliquip", "ex", "ea", "commodo", "consequat"
     ];
 
     static readonly Random random = new(DateTime.Now.Millisecond);

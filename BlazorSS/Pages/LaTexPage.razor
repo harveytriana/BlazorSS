@@ -1,10 +1,15 @@
-﻿@page "/LaTexPage"
+﻿@page "/LaTeXPage"
 @using SkiaSharp
 @using SkiaSharp.Views.Blazor
 @using CSharpMath.SkiaSharp
 @using System.Text.Json
 
 <style>
+    .canvas-zize {
+        width: 100%;
+        height: 130px;
+    }
+
     .center-element {
         display: flex;
         justify-content: center;
@@ -18,22 +23,33 @@
         margin-right: 8px;
     }
 
+    .loading {
+        font-size: 1.5rem;
+        color: lightgray;
+    }
 </style>
 
 <img src="../images/Latex_Logo.png" style="width:130px;" />
 <hr />
-<div class="center-element">
-    <SKCanvasView @ref="canvasView"
-                  OnPaintSurface="OnPaintSurface"
-                  IgnorePixelScaling=true
-                  style="width:600px;height:130px;" />
+<div class="center-element canvas-zize">
+    @if (completedLoad)
+    {
+        <SKCanvasView @ref="canvasView"
+                      OnPaintSurface="OnPaintSurface"
+                      IgnorePixelScaling=true
+                      class="canvas-zize" />
+    }
+    else
+    {
+        <div class="loading">Loading...</div>
+    }
 </div>
 <p>
-    LATEX, is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
+    LaTeX, is a document preparation system for high-quality typesetting. It is most often used for medium-to-large technical or scientific documents but it can be used for almost any form of publishing.
 </p>
 <hr />
 <h3>Some equations that changed the world</h3>
-@if (lateXSample is not null)
+@if (completedLoad)
 {
     @foreach (var la in ls)
     {
@@ -45,15 +61,21 @@
 }
 
 @code {
-    SKCanvasView? canvasView;
+#nullable disable
+
+    SKCanvasView canvasView;
 
     record LaTeXSample(int Id, string Description, string LaTeX);
 
-    LaTeXSample? lateXSample;
+    LaTeXSample lateXSample;
 
     List<LaTeXSample> ls = [];
 
-    protected override void OnInitialized()
+    MathPainter mathPainter;
+
+    bool completedLoad;
+
+    protected override async Task OnInitializedAsync()
     {
         ls.Add(new LaTeXSample(1, "Quadratic Equation", @"x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"));
         ls.Add(new LaTeXSample(2, "Fourier Transform", @"\hat{f}(\xi) = \int_{-\infty}^\infty f(x) e^{-2\pi i \xi x} \, dx"));
@@ -63,6 +85,14 @@
         ls.Add(new LaTeXSample(6, "Euler's formula", @"e^{i\pi} + 1 = 0"));
         ls.Add(new LaTeXSample(7, "Rule of integration by parts", @"\int_{a}^{b} u dv = u(x)v(x)|_a^b - \int^{b}_a v du"));
         lateXSample = ls.Last();
+        // allows loading message
+        await Task.Delay(200);
+
+        mathPainter = new MathPainter
+            {
+                LaTeX = lateXSample.LaTeX
+            };
+        completedLoad = true;
     }
 
     void OnPaintSurface(SKPaintSurfaceEventArgs e)
@@ -70,18 +100,15 @@
         var canvas = e.Surface.Canvas;
         canvas.Clear(SKColors.White);
         // draw LaTeX
-        var painter = new MathPainter
-            {
-                LaTeX = lateXSample?.LaTeX
-            };
-        painter.Draw(canvas);
+        mathPainter.Draw(canvas);
     }
-}
 
-@code {
     void OnOptionSelected(LaTeXSample y)
     {
         lateXSample = y;
+
+        mathPainter.LaTeX = lateXSample.LaTeX;
+
         canvasView?.Invalidate();
     }
 }

@@ -2,7 +2,10 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 0.95rem;
+    margin: 0px;
+    padding: 0px;
+    text-rendering: optimizeLegibility;
 }
 
 h1:focus {
