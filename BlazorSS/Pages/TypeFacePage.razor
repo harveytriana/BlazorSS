@@ -5,7 +5,8 @@
 
 <h3>Type Face Service</h3>
 <p>
-    You can handle TT fonts in drawings with Skia. Here I show a correct and effective way to do it.
+    You can handle TT fonts in drawings with Skia. Here I show a strategy to do it.
+    Please note that TTF files may require a license; free fonts are used here.
 </p>
 <hr />
 <ul>
@@ -14,11 +15,13 @@
     <li>Freescpt</li>
     <li>Old London</li>
     <li>Times New Roman</li>
+    <li>Roboto Regular</li>
+    <li>Roboto Light</li>
 </ul>
 <hr />
 <SKCanvasView OnPaintSurface="OnPaintSurface" 
               IgnorePixelScaling=true
-              style="width:100%;height:400px;" />
+              style="width:100%;height:600px;" />
 
 @code {
     void OnPaintSurface(SKPaintSurfaceEventArgs e)
@@ -28,7 +31,7 @@
         using SKPaint paint = new() {
                 Style = SKPaintStyle.Fill,
                 TextSize = 24,
-                IsAntialias = true,
+                IsAntialias = true
             };
 
         string text = "Invisible things are the only realities";
@@ -47,6 +50,12 @@
         canvas.DrawText(text, x, y += h, paint);
 
         paint.Typeface = _typeFace.GetTTF("Times");
+        canvas.DrawText(text, x, y += h, paint);
+
+        paint.Typeface = _typeFace.GetTTF("Roboto-Regular");
+        canvas.DrawText(text, x, y += h, paint);
+
+        paint.Typeface = _typeFace.GetTTF("Roboto-Light");
         canvas.DrawText(text, x, y += h, paint);
     }
 }

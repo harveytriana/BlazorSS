@@ -1,6 +1,6 @@
-﻿#pragma warning disable CA1854 
+﻿using System.Reflection;
+
 using SkiaSharp;
-using System.Reflection;
 
 namespace BlazorSS.Services;
 
@@ -9,12 +9,12 @@ namespace BlazorSS.Services;
 /// </summary>
 public class TypeFaceService
 {
-    readonly Dictionary<string, SKTypeface> _typeFaces = new();
+    readonly Dictionary<string, SKTypeface> _typeFaces = [];
 
     public SKTypeface GetTTF(string ttfName)
     {
-        if(_typeFaces.ContainsKey(ttfName)) {
-            return _typeFaces[ttfName];
+        if(_typeFaces.TryGetValue(ttfName, out SKTypeface? value)) {
+            return value;
         }
         if(LoadTypeFace(ttfName)) {
             return _typeFaces[ttfName];
@@ -26,11 +26,11 @@ public class TypeFaceService
     {
         var assembly = Assembly.GetExecutingAssembly();
         try {
-            var fileName = ttfName.ToLower() + ".ttf";
-            foreach(var item in assembly.GetManifestResourceNames()) {
-                if(item.ToLower().EndsWith(fileName)) {
+            var fileName = ttfName + ".ttf";
+            foreach(var resourcePath in assembly.GetManifestResourceNames()) {
+                if(ExitsResourceName(resourcePath, fileName)) {
                     Console.WriteLine("Load Typeface {0}", ttfName);
-                    var s = assembly.GetManifestResourceStream(item);
+                    var s = assembly.GetManifestResourceStream(resourcePath);
                     var f = SKTypeface.FromStream(s);
                     _typeFaces.Add(ttfName, f);
                     return true;
@@ -39,5 +39,10 @@ public class TypeFaceService
         }
         catch {/* missing resource */}
         return false;
+    }
+
+    public static bool ExitsResourceName(string resourcePath, string name)
+    {
+        return resourcePath.EndsWith(name, StringComparison.OrdinalIgnoreCase);
     }
 }
